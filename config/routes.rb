@@ -1,7 +1,7 @@
 Dojit::Application.routes.draw do
-  get "welcome/index"
+  resources :posts
 
-  get "welcome/about"
+  get 'about' => 'welcome#about'
   root to: 'welcome#index'
 
   # The priority is based upon order of creation:
