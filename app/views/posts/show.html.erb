@@ -1,6 +1,5 @@
 <h1>Posts#show</h1>
 <%=@post.title%>
 <%=@post.body%>
-<% raise "Found post without id: #{@post.inspect}" unless @post.comments.first%>
-<%=@post.comments.first.body%>
+<%= link_to  "Edit", edit_post_path, class: 'btn btn-success'%>
 <p>Find me in app/views/posts/show.html.erb</p>

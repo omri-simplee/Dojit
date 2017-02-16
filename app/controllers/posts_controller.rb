@@ -12,20 +12,30 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])
   end
 
-def create
-    params2 = params[:post]
-    @post = Post.new(:title=>params2[:title], :body=>params2[:body])
-    # @post = Post.new(params2[:title], params2[:body])
-    # @post = Post.new(params2.(:title, :body))
-    # Rails.logger.debug(params.to_s)
-    if @post.save
-      flash[:notice] = "Post was saved."
+  def create
+      http_params = params[:post]
+      @post = Post.new(:title=>http_params[:title], :body=>http_params[:body])
+      if @post.save
+        flash[:notice] = "Post was saved."
+        redirect_to @post
+      else
+        flash[:error] = "There was an error saving the post. Please try again."
+        render :new
+      end
+  end
+
+  def update
+    http_params = params[:post]
+    @post = Post.find(params[:id])
+    if @post.update_attributes(params[:post]) #Equals to update_attribute(:body => http_params[:post][:title])
+      flash[:notice] = "Post was updated"
       redirect_to @post
     else
-      flash[:error] = "There was an error saving the post. Please try again."
-      render :new
+      flash[:notice] = "There was an error editing the post, Please try again"
+      render :edit
     end
   end
 end
