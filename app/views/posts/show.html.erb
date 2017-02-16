@@ -1,6 +1,6 @@
 <h1>Posts#show</h1>
-<!-- <%= params%> -->
 <%=@post.title%>
 <%=@post.body%>
+<% raise "Found post without id: #{@post.inspect}" unless @post.comments.first%>
 <%=@post.comments.first.body%>
 <p>Find me in app/views/posts/show.html.erb</p>
