@@ -17,7 +17,8 @@ class PostsController < ApplicationController
 
   def create
       http_params = params[:post]
-      @post = Post.new(:title=>http_params[:title], :body=>http_params[:body])
+      @post = current_user.posts.build(params.require(:post).permit(:title, :body))
+      # @post = Post.new(:title=>http_params[:title], :body=>http_params[:body])
       if @post.save
         flash[:notice] = "Post was saved."
         redirect_to @post
