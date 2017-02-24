@@ -1,31 +1,34 @@
 class PostsController < ApplicationController
-  def index
-  	@posts = Post.all
-    # authorize @post
-  end
+  # def index
+  # 	@posts = Post.all
+  #   # authorize @post
+  # end
 
   def show
+    @topic = Topic.find(params[:topic_id])
   	@post = Post.find(params[:id])
   end
 
   def new
+    @topic = Topic.find(params[:topic_id])
     @post = Post.new
     authorize @post
   end
 
   def edit
+    @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:id])
     authorize @post
   end
 
   def create
-      http_params = params[:post]
+      @topic = Topic.find(params[:topic_id])
       @post = current_user.posts.build(params.require(:post).permit(:title, :body))
+      @post.topic = @topic
       authorize @post
-      # @post = Post.new(:title=>http_params[:title], :body=>http_params[:body])
       if @post.save
         flash[:notice] = "Post was saved."
-        redirect_to @post
+        redirect_to [@topic, @post]
       else
         flash[:error] = "There was an error saving the post. Please try again."
         render :new
@@ -33,14 +36,14 @@ class PostsController < ApplicationController
   end
 
   def update
-    http_params = params[:post]
+    @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:id])
     authorize @post
     if @post.update_attributes(params[:post]) #Equals to update_attribute(:body => http_params[:post][:title])
       flash[:notice] = "Post was updated"
-      redirect_to @post
+      redirect_to [@topic, @post]
     else
-      flash[:notice] = "There was an error editing the post, Please try again"
+      flash[:error] = "There was an error editing the post, Please try again"
       render :edit
     end
   end
