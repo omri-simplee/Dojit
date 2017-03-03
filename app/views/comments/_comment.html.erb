@@ -1,0 +1,12 @@
+<div>
+  <% @comments.each do |comment| %>
+    <div class="media">
+      <div class="media-body">
+        <small>
+          <%= comment.body%>
+        </small>
+      </div>
+    </div>
+  <% end %>
+</div>
+

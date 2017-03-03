@@ -37,7 +37,6 @@ topics = Topic.all
 
 # The `save` method then saves this User to the database.
 
-
 # Create Posts
 50.times do
   Post.create!(
@@ -54,6 +53,7 @@ posts = Post.all
   Comment.create!(
   	 # user: users.sample,   # we have not yet associated Users with Comments
     post: posts.sample,
+    user: users.sample,
     body: Faker::Lorem.paragraph
   )
 end

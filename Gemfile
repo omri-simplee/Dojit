@@ -11,6 +11,7 @@ end
 
 group :development do
   gem 'sqlite3'
+  gem 'better_errors'
 end
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

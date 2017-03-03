@@ -3,10 +3,17 @@
 <div class="row">
   <div class="col-md-8">
     <p><%= markdown @post.body %></p>
+    <p>Comments:</p>
+    <%= render partial: 'comments/comment', locals: {comments: @comments}%>
   </div>
   <div class="col-md-4">
     <% if policy(@post).edit? %>
       <%= link_to "Edit", edit_topic_post_path(@topic, @post), class: 'btn btn-success' %>
     <% end %>
   </div>
+  <% if current_user %>
+    <div class="col-md-4">
+      <%= render partial: 'comments/form', locals: {topic: @topic, post: @post, comment: @post.comments.new}%>
+    </div>
+  <% end %>
 </div>
