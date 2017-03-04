@@ -6,7 +6,6 @@ class Post < ActiveRecord::Base
   default_scope { order('created_at DESC') }
 
   validates :title, length: {minimum: 5}, presence: true
-  validates :body, length: {maximum: 20}, presence: true
   validates :user, presence: true
   validates :topic, presence: true
 
